@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi Trabajo Profesional</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .seccion {
+            display: none;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .activo {
+            display: block;
+        }
+
+        /* PORTADA */
+        #inicio {
+            background: linear-gradient(to right, #0ea5e9, #2563eb);
+            color: white;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .titulo {
+            font-size: 45px;
+        }
+
+        .sub {
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            color: black;
+            width: 260px;
+            display: inline-block;
+            margin: 15px;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.07);
+        }
+
+        .icono {
+            font-size: 40px;
+        }
+
+        /* CONTENIDO */
+        .contenido {
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .flex {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 15px;
+            width: 320px;
+        }
+
+        input {
+            width: 90%;
+            padding: 8px;
+            margin: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            padding: 10px;
+            width: 95%;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .precio {
+            background: #22c55e;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .volver {
+            margin-top: 20px;
+            padding: 10px;
+            background: gray;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            color: white;
+            padding: 12px;
+            border-radius: 50%;
+            text-decoration: none;
+        }
+
+        .numero {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            font-size: 12px;
+        }
+
+        #mensaje {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #22c55e;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="mensaje">✅ Registrado correctamente</div>
+
+<!-- INICIO -->
+<div id="inicio" class="seccion activo">
+    <div class="titulo">Mi Servicio Tecnológico 💻</div>
+    <div class="sub">Programación y reparación profesional</div>
+
+    <p>Soluciones rápidas, económicas y confiables para estudiantes y negocios.</p>
+
+    <div class="card" onclick="mostrar('html')">
+        <div class="icono">🌐</div>
+        <h3>HTML</h3>
+        <p>Páginas web modernas</p>
+    </div>
+
+    <div class="card" onclick="mostrar('python')">
+        <div class="icono">🐍</div>
+        <h3>Python</h3>
+        <p>Programas personalizados</p>
+    </div>
+
+    <div class="card" onclick="mostrar('reparacion')">
+        <div class="icono">🔧</div>
+        <h3>Reparación</h3>
+        <p>Celulares y PC</p>
+    </div>
+
+    <br><br>
+
+    <!-- SOBRE TI -->
+    <div class="box">
+        <h3>👤 Sobre mí</h3>
+        <p>Técnico en computación con experiencia en desarrollo web, programación y reparación de equipos.</p>
+
+        <p>📍 Huaral - Lima</p>
+        <p>⏰ Lunes a Sábado 9AM - 8PM</p>
+    </div>
+
+    <!-- OPINIONES -->
+    <div class="box">
+        <h3>⭐ Opiniones</h3>
+        <p>✔ "Excelente servicio" - Juan</p>
+        <p>✔ "Muy rápido y confiable" - María</p>
+    </div>
+</div>
+
+<!-- HTML -->
+<div id="html" class="seccion contenido">
+    <h1>🌐 HTML</h1>
+
+    <div class="flex">
+        <div class="box">
+            <p><b>¿Qué hago?</b><br>Creo páginas web profesionales.</p>
+
+            <p><b>Incluye:</b><br>
+            ✔ Diseño moderno<br>
+            ✔ Adaptado a celular<br>
+            ✔ Rápido</p>
+
+            <div class="precio">
+                💰 Desde S/20 <br>
+                Web completa: S/50
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Registrar</h3>
+            <input type="text" placeholder="Nombre">
+            <input type="text" placeholder="Celular">
+            <input type="text" placeholder="Tipo de web">
+            <button onclick="registrar(this)">Enviar</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/51900200054?text=Hola quiero una página web" target="_blank">💬 Consultar</a>
+
+    <br>
+    <button class="volver" onclick="mostrar('inicio')">Volver</button>
+</div>
+
+<!-- PYTHON -->
+<div id="python" class="seccion contenido">
+    <h1>🐍 Python</h1>
+
+    <div class="flex">
+        <div class="box">
+            <p><b>¿Qué hago?</b><br>Programas y automatización.</p>
+
+            <p><b>Incluye:</b><br>
+            ✔ Sistemas<br>
+            ✔ Automatización<br>
+            ✔ Soporte</p>
+
+            <div class="precio">
+                💰 Desde S/20 <br>
+                Programas: S/30
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Registrar</h3>
+            <input type="text" placeholder="Nombre">
+            <input type="text" placeholder="Celular">
+            <input type="text" placeholder="Programa">
+            <button onclick="registrar(this)">Enviar</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/51900200054?text=Hola quiero un programa en Python" target="_blank">💬 Consultar</a>
+
+    <br>
+    <button class="volver" onclick="mostrar('inicio')">Volver</button>
+</div>
+
+<!-- REPARACIÓN -->
+<div id="reparacion" class="seccion contenido">
+    <h1>🔧 Reparación</h1>
+
+    <div class="flex">
+        <div class="box">
+            <p><b>¿Qué hago?</b><br>Reparación de equipos.</p>
+
+            <p><b>Incluye:</b><br>
+            ✔ Pantalla<br>
+            ✔ Batería<br>
+            ✔ Mantenimiento</p>
+
+            <div class="precio">
+                💰 Desde S/20
+            </div>
+        </div>
+
+        <div class="box">
+            <h3>Registrar</h3>
+            <input type="text" placeholder="Nombre">
+            <input type="text" placeholder="Celular">
+            <input type="text" placeholder="Equipo">
+            <button onclick="registrar(this)">Enviar</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/51900200054?text=Hola quiero reparar mi equipo" target="_blank">💬 Consultar</a>
+
+    <br>
+    <button class="volver" onclick="mostrar('inicio')">Volver</button>
+</div>
+
+<a class="whatsapp" href="https://wa.me/51900200054" target="_blank">💬</a>
+<div class="numero">📞 900200054</div>
+
+<script>
+function mostrar(seccion) {
+    let secciones = document.querySelectorAll('.seccion');
+    secciones.forEach(s => s.classList.remove('activo'));
+    document.getElementById(seccion).classList.add('activo');
+}
+
+function registrar(boton) {
+    let inputs = boton.parentElement.querySelectorAll("input");
+    let lleno = true;
+
+    inputs.forEach(i => {
+        if (i.value === "") lleno = false;
+    });
+
+    if (!lleno) {
+        alert("Completa todos los campos");
+        return;
+    }
+
+    let mensaje = document.getElementById("mensaje");
+    mensaje.style.display = "block";
+
+    setTimeout(() => {
+        mensaje.style.display = "none";
+    }, 2000);
+
+    inputs.forEach(i => i.value = "");
+}
+</script>
+
+</body>
+</html>
