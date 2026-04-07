@@ -1,326 +1,352 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Mi Trabajo Profesional</title>
+<meta charset="UTF-8">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial;
-        }
+<!-- AGREGADO PARA CELULAR -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        .seccion {
-            display: none;
-            padding: 40px;
-            text-align: center;
-        }
+<title>Juego Educativo</title>
 
-        .activo {
-            display: block;
-        }
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#f4f6f8;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
 
-        /* PORTADA */
-        #inicio {
-            background: linear-gradient(to right, #0ea5e9, #2563eb);
-            color: white;
-            min-height: 100vh;
-            padding-top: 80px;
-        }
+.app{
+width:380px;
+background:white;
+border-radius:15px;
+padding:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+text-align:center;
+}
 
-        .titulo {
-            font-size: 45px;
-        }
+h1{color:#333;}
 
-        .sub {
-            margin-bottom: 20px;
-        }
+input{
+width:90%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-top:10px;
+}
 
-        .card {
-            background: white;
-            color: black;
-            width: 260px;
-            display: inline-block;
-            margin: 15px;
-            padding: 25px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+button{
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+background:#4CAF50;
+color:white;
+cursor:pointer;
+}
 
-        .card:hover {
-            transform: scale(1.07);
-        }
+/* MEJOR TOQUE CELULAR */
+button{
+touch-action: manipulation;
+}
 
-        .icono {
-            font-size: 40px;
-        }
+button:hover{background:#45a049;}
 
-        /* CONTENIDO */
-        .contenido {
-            background: #0f172a;
-            color: white;
-            min-height: 100vh;
-        }
+.opciones{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:10px;
+}
+.opciones button{background:#2196F3;}
 
-        .flex {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
+.info{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
 
-        .box {
-            background: rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            width: 320px;
-        }
+.barra{
+height:6px;
+background:#ddd;
+border-radius:5px;
+margin-top:10px;
+}
+.progreso{
+height:6px;
+background:#4CAF50;
+width:0%;
+border-radius:5px;
+}
 
-        input {
-            width: 90%;
-            padding: 8px;
-            margin: 5px;
-            border-radius: 5px;
-            border: none;
-        }
+/* PERSONAJES */
+.personaje{
+font-size:40px;
+margin-top:10px;
+animation:flotar 2s infinite;
+}
 
-        button {
-            padding: 10px;
-            width: 95%;
-            background: #25D366;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
+.personaje-inicio{
+font-size:50px;
+margin-top:15px;
+animation:flotar 2s infinite;
+}
 
-        .precio {
-            background: #22c55e;
-            padding: 10px;
-            border-radius: 10px;
-            margin-top: 10px;
-        }
+@keyframes flotar{
+0%{transform:translateY(0);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0);}
+}
 
-        .volver {
-            margin-top: 20px;
-            padding: 10px;
-            background: gray;
-            color: white;
-            border: none;
-            border-radius: 5px;
-        }
+.mensaje, .mensaje-inicio{
+background:#f1f1f1;
+padding:8px;
+border-radius:10px;
+font-size:14px;
+margin-top:8px;
+color:#333;
+}
 
-        .whatsapp {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #25D366;
-            color: white;
-            padding: 12px;
-            border-radius: 50%;
-            text-decoration: none;
-        }
+/* ===== RESPONSIVE CELULAR (AGREGADO) ===== */
+@media (max-width: 480px){
 
-        .numero {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-size: 12px;
-        }
+.app{
+width:95%;
+padding:15px;
+border-radius:12px;
+}
 
-        #mensaje {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #22c55e;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-        }
-    </style>
+h1{
+font-size:22px;
+}
 
+input{
+width:100%;
+font-size:16px;
+}
+
+button{
+width:100%;
+font-size:16px;
+padding:12px;
+}
+
+.opciones{
+grid-template-columns:1fr;
+}
+
+.opciones button{
+height:60px;
+font-size:16px;
+}
+
+.personaje, .personaje-inicio{
+font-size:60px;
+}
+
+.mensaje, .mensaje-inicio{
+font-size:15px;
+}
+
+}
+</style>
 </head>
+
 <body>
 
-<div id="mensaje">✅ Registrado correctamente</div>
+<div class="app">
 
 <!-- INICIO -->
-<div id="inicio" class="seccion activo">
-    <div class="titulo">Mi Servicio Tecnológico 💻</div>
-    <div class="sub">Programación y reparación profesional</div>
+<div id="inicio">
+<h1>Juego Educativo</h1>
+<p>Aprende jugando 😊</p>
 
-    <p>Soluciones rápidas, económicas y confiables para estudiantes y negocios.</p>
+<input type="text" id="nombre" placeholder="Ingresa tu nombre">
+<button onclick="iniciar()">Empezar</button>
 
-    <div class="card" onclick="mostrar('html')">
-        <div class="icono">🌐</div>
-        <h3>HTML</h3>
-        <p>Páginas web modernas</p>
-    </div>
-
-    <div class="card" onclick="mostrar('python')">
-        <div class="icono">🐍</div>
-        <h3>Python</h3>
-        <p>Programas personalizados</p>
-    </div>
-
-    <div class="card" onclick="mostrar('reparacion')">
-        <div class="icono">🔧</div>
-        <h3>Reparación</h3>
-        <p>Celulares y PC</p>
-    </div>
-
-    <br><br>
-
-    <!-- SOBRE TI -->
-    <div class="box">
-        <h3>👤 Sobre mí</h3>
-        <p>Técnico en computación con experiencia en desarrollo web, programación y reparación de equipos.</p>
-
-        <p>📍 Huaral - Lima</p>
-        <p>⏰ Lunes a Sábado 9AM - 8PM</p>
-    </div>
-
-    <!-- OPINIONES -->
-    <div class="box">
-        <h3>⭐ Opiniones</h3>
-        <p>✔ "Excelente servicio" - Juan</p>
-        <p>✔ "Muy rápido y confiable" - María</p>
-    </div>
+<div class="personaje-inicio">🧸</div>
+<div class="mensaje-inicio" id="mensajeInicio">
+Hola 👋 escribe tu nombre
+</div>
 </div>
 
-<!-- HTML -->
-<div id="html" class="seccion contenido">
-    <h1>🌐 HTML</h1>
+<!-- JUEGO -->
+<div id="juego" style="display:none;">
+<h3 id="bienvenida"></h3>
 
-    <div class="flex">
-        <div class="box">
-            <p><b>¿Qué hago?</b><br>Creo páginas web profesionales.</p>
-
-            <p><b>Incluye:</b><br>
-            ✔ Diseño moderno<br>
-            ✔ Adaptado a celular<br>
-            ✔ Rápido</p>
-
-            <div class="precio">
-                💰 Desde S/20 <br>
-                Web completa: S/50
-            </div>
-        </div>
-
-        <div class="box">
-            <h3>Registrar</h3>
-            <input type="text" placeholder="Nombre">
-            <input type="text" placeholder="Celular">
-            <input type="text" placeholder="Tipo de web">
-            <button onclick="registrar(this)">Enviar</button>
-        </div>
-    </div>
-
-    <a href="https://wa.me/51900200054?text=Hola quiero una página web" target="_blank">💬 Consultar</a>
-
-    <br>
-    <button class="volver" onclick="mostrar('inicio')">Volver</button>
+<div class="info">
+<span id="puntaje">⭐ 0</span>
+<span id="vidas">❤️❤️❤️</span>
 </div>
 
-<!-- PYTHON -->
-<div id="python" class="seccion contenido">
-    <h1>🐍 Python</h1>
-
-    <div class="flex">
-        <div class="box">
-            <p><b>¿Qué hago?</b><br>Programas y automatización.</p>
-
-            <p><b>Incluye:</b><br>
-            ✔ Sistemas<br>
-            ✔ Automatización<br>
-            ✔ Soporte</p>
-
-            <div class="precio">
-                💰 Desde S/20 <br>
-                Programas: S/30
-            </div>
-        </div>
-
-        <div class="box">
-            <h3>Registrar</h3>
-            <input type="text" placeholder="Nombre">
-            <input type="text" placeholder="Celular">
-            <input type="text" placeholder="Programa">
-            <button onclick="registrar(this)">Enviar</button>
-        </div>
-    </div>
-
-    <a href="https://wa.me/51900200054?text=Hola quiero un programa en Python" target="_blank">💬 Consultar</a>
-
-    <br>
-    <button class="volver" onclick="mostrar('inicio')">Volver</button>
+<div class="barra">
+<div class="progreso" id="progreso"></div>
 </div>
 
-<!-- REPARACIÓN -->
-<div id="reparacion" class="seccion contenido">
-    <h1>🔧 Reparación</h1>
+<p id="pregunta"></p>
 
-    <div class="flex">
-        <div class="box">
-            <p><b>¿Qué hago?</b><br>Reparación de equipos.</p>
+<div class="opciones" id="opciones"></div>
 
-            <p><b>Incluye:</b><br>
-            ✔ Pantalla<br>
-            ✔ Batería<br>
-            ✔ Mantenimiento</p>
+<p id="resultado"></p>
 
-            <div class="precio">
-                💰 Desde S/20
-            </div>
-        </div>
+<button onclick="reiniciar()">Reiniciar</button>
 
-        <div class="box">
-            <h3>Registrar</h3>
-            <input type="text" placeholder="Nombre">
-            <input type="text" placeholder="Celular">
-            <input type="text" placeholder="Equipo">
-            <button onclick="registrar(this)">Enviar</button>
-        </div>
-    </div>
+<!-- PERSONAJE EN JUEGO -->
+<div class="personaje" id="personaje">🧸</div>
+<div class="mensaje" id="mensaje">¡Vamos!</div>
 
-    <a href="https://wa.me/51900200054?text=Hola quiero reparar mi equipo" target="_blank">💬 Consultar</a>
-
-    <br>
-    <button class="volver" onclick="mostrar('inicio')">Volver</button>
 </div>
 
-<a class="whatsapp" href="https://wa.me/51900200054" target="_blank">💬</a>
-<div class="numero">📞 900200054</div>
+</div>
 
 <script>
-function mostrar(seccion) {
-    let secciones = document.querySelectorAll('.seccion');
-    secciones.forEach(s => s.classList.remove('activo'));
-    document.getElementById(seccion).classList.add('activo');
+
+// PREGUNTAS CON EMOJIS
+let preguntas = [
+{p:"🐶 ¿Cuál es un animal?",o:["perro","mesa","azul","leer"],r:"perro"},
+{p:"🍎 ¿Cuál es una fruta?",o:["manzana","silla","rojo","correr"],r:"manzana"},
+{p:"🎨 ¿Cuál es un color?",o:["verde","mesa","leer","perro"],r:"verde"},
+{p:"✏️ ¿Qué usamos para escribir?",o:["lápiz","mesa","perro","azul"],r:"lápiz"},
+{p:"🛏️ ¿Qué usamos para dormir?",o:["cama","mesa","rojo","leer"],r:"cama"},
+{p:"🐦 ¿Qué animal vuela?",o:["pájaro","perro","mesa","silla"],r:"pájaro"},
+{p:"🍞 ¿Qué se come?",o:["pan","silla","rojo","leer"],r:"pan"},
+{p:"📖 ¿Cuál es una oración correcta?",o:["El niño juega","Niño juega el","Juega niño el","Niño el juega"],r:"El niño juega"},
+{p:"🔤 ¿Cuál empieza con mayúscula?",o:["Lima","perro","mesa","casa"],r:"Lima"},
+{p:"🌎 ¿Cuál es un nombre propio?",o:["Perú","mesa","rojo","leer"],r:"Perú"}
+];
+
+let indice=0, puntaje=0, vidas=3, jugador="";
+
+// INICIAR
+function iniciar(){
+jugador=document.getElementById("nombre").value;
+if(jugador===""){alert("Ingresa tu nombre");return;}
+
+document.getElementById("inicio").style.display="none";
+document.getElementById("juego").style.display="block";
+
+document.getElementById("bienvenida").innerText="Hola "+jugador;
+
+mezclar();
+mostrar();
 }
 
-function registrar(boton) {
-    let inputs = boton.parentElement.querySelectorAll("input");
-    let lleno = true;
-
-    inputs.forEach(i => {
-        if (i.value === "") lleno = false;
-    });
-
-    if (!lleno) {
-        alert("Completa todos los campos");
-        return;
-    }
-
-    let mensaje = document.getElementById("mensaje");
-    mensaje.style.display = "block";
-
-    setTimeout(() => {
-        mensaje.style.display = "none";
-    }, 2000);
-
-    inputs.forEach(i => i.value = "");
+// MEZCLAR
+function mezclar(){
+preguntas.sort(()=>Math.random()-0.5);
 }
+
+// MOSTRAR
+function mostrar(){
+if(indice>=preguntas.length||vidas<=0){fin();return;}
+
+let q=preguntas[indice];
+document.getElementById("pregunta").innerText=q.p;
+
+let html="";
+q.o.forEach(op=>{
+html+=`<button onclick="responder('${op}')">${op}</button>`;
+});
+document.getElementById("opciones").innerHTML=html;
+
+document.getElementById("progreso").style.width=(indice*10)+"%";
+
+// personaje habla
+hablar("Piensa bien 🤔");
+}
+
+// RESPONDER
+function responder(op){
+if(op===preguntas[indice].r){
+puntaje+=10;
+document.getElementById("resultado").innerText="✅ Correcto";
+hablar("¡Bien hecho! 🎉");
+}else{
+vidas--;
+document.getElementById("resultado").innerText="❌ Incorrecto";
+hablar("Intenta otra vez 💪");
+}
+
+document.getElementById("puntaje").innerText="⭐ "+puntaje;
+document.getElementById("vidas").innerText="❤️".repeat(vidas);
+
+indice++;
+setTimeout(mostrar,700);
+}
+
+// FINAL
+function fin(){
+document.getElementById("pregunta").innerText="🎉 Juego terminado";
+document.getElementById("opciones").innerHTML="";
+document.getElementById("resultado").innerText="🏆 Puntaje: "+puntaje;
+hablar("Buen trabajo 👏");
+}
+
+// REINICIAR
+function reiniciar(){location.reload();}
+
+// PERSONAJE HABLA
+function hablar(texto){
+document.getElementById("mensaje").innerText=texto;
+}
+
+// MENSAJE INICIO DINÁMICO
+let mensajes=["Hola 👋","Vamos a jugar 🎮","Aprende y diviértete 📚","¡Tú puedes! 💪"];
+let iMsg=0;
+
+setInterval(()=>{
+let m=document.getElementById("mensajeInicio");
+if(m){
+m.innerText=mensajes[iMsg];
+iMsg=(iMsg+1)%mensajes.length;
+}
+},2500);
+
+
+// ====== AGREGADO (NO BORRADO) ======
+
+// MÁS PREGUNTAS
+preguntas.push(
+{p:"🚗 ¿Qué usamos para transportarnos?",o:["auto","mesa","libro","lápiz"],r:"auto"},
+{p:"👂 ¿Con qué escuchamos?",o:["oídos","mesa","mano","pie"],r:"oídos"},
+{p:"👀 ¿Con qué vemos?",o:["ojos","mesa","nariz","mano"],r:"ojos"},
+{p:"🍌 ¿Qué fruta es amarilla?",o:["plátano","manzana","pera","uva"],r:"plátano"},
+{p:"🐟 ¿Qué vive en el agua?",o:["pez","perro","gato","silla"],r:"pez"},
+{p:"🏫 ¿Dónde estudian los niños?",o:["escuela","cocina","baño","carro"],r:"escuela"},
+{p:"🔥 ¿Qué quema?",o:["fuego","agua","hielo","mesa"],r:"fuego"},
+{p:"❄️ ¿Qué es frío?",o:["hielo","fuego","sol","mesa"],r:"hielo"},
+{p:"🌞 ¿Qué ilumina el día?",o:["sol","luna","mesa","libro"],r:"sol"},
+{p:"🌙 ¿Qué sale de noche?",o:["luna","sol","mesa","casa"],r:"luna"}
+);
+
+// PERSONAJE CON EMOCIONES
+const hablarOriginal = hablar;
+
+function hablar(texto){
+document.getElementById("mensaje").innerText = texto;
+
+let personaje = document.getElementById("personaje");
+
+if(texto.includes("Bien")){
+personaje.innerText = "😃";
+}
+else if(texto.includes("Incorrecto") || texto.includes("Intenta")){
+personaje.innerText = "😢";
+}
+else if(texto.includes("Piensa")){
+personaje.innerText = "🤔";
+}
+else if(texto.includes("Buen trabajo")){
+personaje.innerText = "😎";
+}
+else{
+personaje.innerText = "🧸";
+}
+}
+
 </script>
 
 </body>
