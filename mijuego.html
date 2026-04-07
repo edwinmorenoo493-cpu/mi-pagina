@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+<!-- AGREGADO PARA CELULAR -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Juego Educativo</title>
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background:#f4f6f8;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.app{
+width:380px;
+background:white;
+border-radius:15px;
+padding:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h1{color:#333;}
+
+input{
+width:90%;
+padding:10px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-top:10px;
+}
+
+button{
+padding:10px;
+margin-top:10px;
+border:none;
+border-radius:8px;
+background:#4CAF50;
+color:white;
+cursor:pointer;
+}
+
+/* MEJOR TOQUE CELULAR */
+button{
+touch-action: manipulation;
+}
+
+button:hover{background:#45a049;}
+
+.opciones{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:10px;
+margin-top:10px;
+}
+.opciones button{background:#2196F3;}
+
+.info{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+}
+
+.barra{
+height:6px;
+background:#ddd;
+border-radius:5px;
+margin-top:10px;
+}
+.progreso{
+height:6px;
+background:#4CAF50;
+width:0%;
+border-radius:5px;
+}
+
+/* PERSONAJES */
+.personaje{
+font-size:40px;
+margin-top:10px;
+animation:flotar 2s infinite;
+}
+
+.personaje-inicio{
+font-size:50px;
+margin-top:15px;
+animation:flotar 2s infinite;
+}
+
+@keyframes flotar{
+0%{transform:translateY(0);}
+50%{transform:translateY(-6px);}
+100%{transform:translateY(0);}
+}
+
+.mensaje, .mensaje-inicio{
+background:#f1f1f1;
+padding:8px;
+border-radius:10px;
+font-size:14px;
+margin-top:8px;
+color:#333;
+}
+
+/* ===== RESPONSIVE CELULAR (AGREGADO) ===== */
+@media (max-width: 480px){
+
+.app{
+width:95%;
+padding:15px;
+border-radius:12px;
+}
+
+h1{
+font-size:22px;
+}
+
+input{
+width:100%;
+font-size:16px;
+}
+
+button{
+width:100%;
+font-size:16px;
+padding:12px;
+}
+
+.opciones{
+grid-template-columns:1fr;
+}
+
+.opciones button{
+height:60px;
+font-size:16px;
+}
+
+.personaje, .personaje-inicio{
+font-size:60px;
+}
+
+.mensaje, .mensaje-inicio{
+font-size:15px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- INICIO -->
+<div id="inicio">
+<h1>Juego Educativo</h1>
+<p>Aprende jugando 😊</p>
+
+<input type="text" id="nombre" placeholder="Ingresa tu nombre">
+<button onclick="iniciar()">Empezar</button>
+
+<div class="personaje-inicio">🧸</div>
+<div class="mensaje-inicio" id="mensajeInicio">
+Hola 👋 escribe tu nombre
+</div>
+</div>
+
+<!-- JUEGO -->
+<div id="juego" style="display:none;">
+<h3 id="bienvenida"></h3>
+
+<div class="info">
+<span id="puntaje">⭐ 0</span>
+<span id="vidas">❤️❤️❤️</span>
+</div>
+
+<div class="barra">
+<div class="progreso" id="progreso"></div>
+</div>
+
+<p id="pregunta"></p>
+
+<div class="opciones" id="opciones"></div>
+
+<p id="resultado"></p>
+
+<button onclick="reiniciar()">Reiniciar</button>
+
+<!-- PERSONAJE EN JUEGO -->
+<div class="personaje" id="personaje">🧸</div>
+<div class="mensaje" id="mensaje">¡Vamos!</div>
+
+</div>
+
+</div>
+
+<script>
+
+// PREGUNTAS CON EMOJIS
+let preguntas = [
+{p:"🐶 ¿Cuál es un animal?",o:["perro","mesa","azul","leer"],r:"perro"},
+{p:"🍎 ¿Cuál es una fruta?",o:["manzana","silla","rojo","correr"],r:"manzana"},
+{p:"🎨 ¿Cuál es un color?",o:["verde","mesa","leer","perro"],r:"verde"},
+{p:"✏️ ¿Qué usamos para escribir?",o:["lápiz","mesa","perro","azul"],r:"lápiz"},
+{p:"🛏️ ¿Qué usamos para dormir?",o:["cama","mesa","rojo","leer"],r:"cama"},
+{p:"🐦 ¿Qué animal vuela?",o:["pájaro","perro","mesa","silla"],r:"pájaro"},
+{p:"🍞 ¿Qué se come?",o:["pan","silla","rojo","leer"],r:"pan"},
+{p:"📖 ¿Cuál es una oración correcta?",o:["El niño juega","Niño juega el","Juega niño el","Niño el juega"],r:"El niño juega"},
+{p:"🔤 ¿Cuál empieza con mayúscula?",o:["Lima","perro","mesa","casa"],r:"Lima"},
+{p:"🌎 ¿Cuál es un nombre propio?",o:["Perú","mesa","rojo","leer"],r:"Perú"}
+];
+
+let indice=0, puntaje=0, vidas=3, jugador="";
+
+// INICIAR
+function iniciar(){
+jugador=document.getElementById("nombre").value;
+if(jugador===""){alert("Ingresa tu nombre");return;}
+
+document.getElementById("inicio").style.display="none";
+document.getElementById("juego").style.display="block";
+
+document.getElementById("bienvenida").innerText="Hola "+jugador;
+
+mezclar();
+mostrar();
+}
+
+// MEZCLAR
+function mezclar(){
+preguntas.sort(()=>Math.random()-0.5);
+}
+
+// MOSTRAR
+function mostrar(){
+if(indice>=preguntas.length||vidas<=0){fin();return;}
+
+let q=preguntas[indice];
+document.getElementById("pregunta").innerText=q.p;
+
+let html="";
+q.o.forEach(op=>{
+html+=`<button onclick="responder('${op}')">${op}</button>`;
+});
+document.getElementById("opciones").innerHTML=html;
+
+document.getElementById("progreso").style.width=(indice*10)+"%";
+
+// personaje habla
+hablar("Piensa bien 🤔");
+}
+
+// RESPONDER
+function responder(op){
+if(op===preguntas[indice].r){
+puntaje+=10;
+document.getElementById("resultado").innerText="✅ Correcto";
+hablar("¡Bien hecho! 🎉");
+}else{
+vidas--;
+document.getElementById("resultado").innerText="❌ Incorrecto";
+hablar("Intenta otra vez 💪");
+}
+
+document.getElementById("puntaje").innerText="⭐ "+puntaje;
+document.getElementById("vidas").innerText="❤️".repeat(vidas);
+
+indice++;
+setTimeout(mostrar,700);
+}
+
+// FINAL
+function fin(){
+document.getElementById("pregunta").innerText="🎉 Juego terminado";
+document.getElementById("opciones").innerHTML="";
+document.getElementById("resultado").innerText="🏆 Puntaje: "+puntaje;
+hablar("Buen trabajo 👏");
+}
+
+// REINICIAR
+function reiniciar(){location.reload();}
+
+// PERSONAJE HABLA
+function hablar(texto){
+document.getElementById("mensaje").innerText=texto;
+}
+
+// MENSAJE INICIO DINÁMICO
+let mensajes=["Hola 👋","Vamos a jugar 🎮","Aprende y diviértete 📚","¡Tú puedes! 💪"];
+let iMsg=0;
+
+setInterval(()=>{
+let m=document.getElementById("mensajeInicio");
+if(m){
+m.innerText=mensajes[iMsg];
+iMsg=(iMsg+1)%mensajes.length;
+}
+},2500);
+
+
+// ====== AGREGADO (NO BORRADO) ======
+
+// MÁS PREGUNTAS
+preguntas.push(
+{p:"🚗 ¿Qué usamos para transportarnos?",o:["auto","mesa","libro","lápiz"],r:"auto"},
+{p:"👂 ¿Con qué escuchamos?",o:["oídos","mesa","mano","pie"],r:"oídos"},
+{p:"👀 ¿Con qué vemos?",o:["ojos","mesa","nariz","mano"],r:"ojos"},
+{p:"🍌 ¿Qué fruta es amarilla?",o:["plátano","manzana","pera","uva"],r:"plátano"},
+{p:"🐟 ¿Qué vive en el agua?",o:["pez","perro","gato","silla"],r:"pez"},
+{p:"🏫 ¿Dónde estudian los niños?",o:["escuela","cocina","baño","carro"],r:"escuela"},
+{p:"🔥 ¿Qué quema?",o:["fuego","agua","hielo","mesa"],r:"fuego"},
+{p:"❄️ ¿Qué es frío?",o:["hielo","fuego","sol","mesa"],r:"hielo"},
+{p:"🌞 ¿Qué ilumina el día?",o:["sol","luna","mesa","libro"],r:"sol"},
+{p:"🌙 ¿Qué sale de noche?",o:["luna","sol","mesa","casa"],r:"luna"}
+);
+
+// PERSONAJE CON EMOCIONES
+const hablarOriginal = hablar;
+
+function hablar(texto){
+document.getElementById("mensaje").innerText = texto;
+
+let personaje = document.getElementById("personaje");
+
+if(texto.includes("Bien")){
+personaje.innerText = "😃";
+}
+else if(texto.includes("Incorrecto") || texto.includes("Intenta")){
+personaje.innerText = "😢";
+}
+else if(texto.includes("Piensa")){
+personaje.innerText = "🤔";
+}
+else if(texto.includes("Buen trabajo")){
+personaje.innerText = "😎";
+}
+else{
+personaje.innerText = "🧸";
+}
+}
+
+</script>
+
+</body>
+</html>
